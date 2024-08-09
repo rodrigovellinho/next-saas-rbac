@@ -7,8 +7,10 @@ import { z } from 'zod'
 import { signInWithPassword } from '@/src/http/sign-in-with-password'
 
 const signInSchema = z.object({
-  email: z.string().email({ message: 'Please, provide a valid email addrss' }),
-  password: z.string().min(1, { message: 'Please, provide your password' }),
+  email: z
+    .string()
+    .email({ message: 'Please, provide a valid e-mail address.' }),
+  password: z.string().min(1, { message: 'Please, provide your password.' }),
 })
 
 export async function signInWithEmailAndPassword(data: FormData) {
@@ -16,6 +18,7 @@ export async function signInWithEmailAndPassword(data: FormData) {
 
   if (!result.success) {
     const errors = result.error.flatten().fieldErrors
+
     return { success: false, message: null, errors }
   }
 
@@ -29,7 +32,7 @@ export async function signInWithEmailAndPassword(data: FormData) {
 
     cookies().set('token', token, {
       path: '/',
-      maxAge: 60 * 60 * 24 * 7,
+      maxAge: 60 * 60 * 24 * 7, // 7 days
     })
   } catch (err) {
     if (err instanceof HTTPError) {
@@ -37,14 +40,16 @@ export async function signInWithEmailAndPassword(data: FormData) {
 
       return {
         success: false,
-        message: 'Unexpected error, try again in a few minutes',
+        message: 'Unexpected error, try again in a few minutes.',
         errors: null,
       }
     }
 
+    console.error(err)
+
     return {
       success: false,
-      message: 'Unexpected error, try again in a few minutes',
+      message: 'Unexpected error, try again in a few minutes.',
       errors: null,
     }
   }
