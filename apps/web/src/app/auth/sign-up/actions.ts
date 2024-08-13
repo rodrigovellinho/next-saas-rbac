@@ -3,7 +3,7 @@
 import { HTTPError } from 'ky'
 import { z } from 'zod'
 
-import { signUp } from '../../../http/sign-up'
+import { signUp } from '@/src/http/sign-up'
 
 const signUpSchema = z
   .object({
@@ -34,7 +34,7 @@ export async function signUpAction(data: FormData) {
 
   const { name, email, password } = result.data
 
-  console.log('result', result)
+  /*  console.log('result', result) */
 
   try {
     await signUp({

@@ -8,7 +8,7 @@ async function seed() {
   await prisma.organization.deleteMany()
   await prisma.user.deleteMany()
 
-  const passwordHash = await hash('123456', 1)
+  const passwordHash = await hash('gremio', 1)
 
   const user1 = await prisma.user.create({
     data: {

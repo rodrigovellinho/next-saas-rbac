@@ -58,7 +58,7 @@ export async function createAccount(app: FastifyInstance) {
         },
       })
 
-      console.log('request', request)
+      /*       console.log('request', request) */
 
       return reply.status(201).send()
     },
